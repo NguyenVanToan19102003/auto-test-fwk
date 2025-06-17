@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="1" name="Đăng nhập vào hệ thống" skipped="0" tests="1" time="0.56" timestamp="2025-06-17 01:09:17"><testcase name="Người dùng đăng nhập thành công"><failure message="Undefined default URL for page object LoginPage" type="java.lang.AssertionError">Undefined default URL for page object LoginPage</failure><system-err>Undefined default URL for page object LoginPage&#13;
+com.example.project.pages.LoginPages.LoginPage.openLoginPage(LoginPage.java:18)&#13;
+com.example.project.steps.LoginSteps.openBrowser(LoginSteps.java:17)&#13;
+</system-err></testcase></testsuite>

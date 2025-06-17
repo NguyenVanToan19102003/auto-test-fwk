@@ -1,0 +1,13 @@
+<configuration>
+    <!-- Định nghĩa appender xuất ra console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Định dạng log: giờ phút giây.millisecond [thread] LEVEL logger - message newline -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Thiết lập log root (mặc định) -->
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
