@@ -1,12 +1,7 @@
 package com.example.project.steps;
 
 import com.example.project.pages.LoginPages.LoginPage;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import net.serenitybdd.annotations.Step;
-import net.serenitybdd.annotations.Steps;
 
 public class LoginSteps {
     LoginPage loginPage;
