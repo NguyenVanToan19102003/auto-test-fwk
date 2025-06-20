@@ -6,7 +6,7 @@ import net.serenitybdd.annotations.DefaultUrl;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 
-@DefaultUrl("page:default.base.url")
+@DefaultUrl("page:serenity.base.url")
 public class LoginPage extends PageObject {
 
     private By username = By.id("username");
@@ -14,7 +14,6 @@ public class LoginPage extends PageObject {
     private By button = By.id("submit");
 
     public void openLoginPage() {
-        System.out.println("🚨 Config base.url: " + System.getProperty("serenity.pages.default.base.url"));
         open();
     }
     public void sendUsername(String sendUsername){

@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
 // plugin: cấu hình output hiển thị test, ở đây là "pretty" dễ đọc
 // tags: lọc các scenario hoặc feature để chạy dựa trên tag
 @CucumberOptions(
-        features = "src/test/java/com/example/project/features/login",
-        glue = "com.example.project.steps",
+        features = "src/test/resources/features/login",
+        glue = "com.example.project.stepdefinittions",
         plugin = {
                 "pretty",                           // Log đẹp dễ đọc
                 "html:target/serenity-reports",     // Báo cáo HTML
