@@ -1,6 +1,7 @@
 package com.example.project.steps;
 
 import com.example.project.pages.LoginPages.LoginPage;
+import io.cucumber.java.en.And;
 import net.serenitybdd.annotations.Step;
 
 public class LoginSteps {
@@ -26,11 +27,13 @@ public class LoginSteps {
         loginPage.clickButton();
     }
 
-    @Step("Người dùng đăng nhập thành công")
-    public void loginSuccessSteps(){
+    @Step("Hiển thị text {string}")
+    public void verifyTextLoginSuccessSteps(String text){
+        loginPage.verifyTextLoginSuccess(text);
     }
 
-    @Step("Điều hướng đến trang chủ")
-    public void navigateHomeSteps(){
+    @Step("Người dùng đăng xuất khỏi hệ thống")
+    public void logOutSteps(){
+        loginPage.logOutSuccess();
     }
 }

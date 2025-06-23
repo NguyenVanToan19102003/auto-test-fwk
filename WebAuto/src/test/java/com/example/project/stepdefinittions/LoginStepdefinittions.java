@@ -37,8 +37,14 @@ public class LoginStepdefinittions {
     public void loginSuccessStepdefinittions(){
     }
 
-    @And("Điều hướng đến trang chủ")
-    public void navigateHomeStepdefinittions(){
+    @And("Hiển thị text {string}")
+    public void verifyTextLoginSuccessStepdefinittions(String text){
+        loginSteps.verifyTextLoginSuccessSteps(text);
+    }
+
+    @And("Người dùng đăng xuất khỏi hệ thống")
+    public void logOutStepdefinittions(){
+        loginSteps.logOutSteps();
     }
 
 }
