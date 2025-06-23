@@ -1,7 +1,6 @@
 package com.example.project.pages.LoginPages;
 import com.example.project.action.ClickAction;
 import com.example.project.action.InputAction;
-import com.example.project.framework.utils.LoggerUtils;
 import net.serenitybdd.annotations.DefaultUrl;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
@@ -16,30 +15,20 @@ public class LoginPage extends PageObject {
     public void openLoginPage() {
         open();
     }
+
     public void sendUsername(String sendUsername){
-        $(username).sendKeys(sendUsername);
+        InputAction.sendKeys(username, sendUsername);
     }
     public void sendPassword(String sendPassword){
-        $(password).sendKeys(sendPassword);
+        InputAction.sendKeys(password, sendPassword);
     }
     public void clickButton(){
-        $(button).click();
+        ClickAction.click(button);
     }
 
-
-//    public void sendUsername(String sendUsername){
-//        InputAction.sendKeys(username, sendUsername);
-//    }
-//    public void sendPassword(String sendPassword){
-//        InputAction.sendKeys(password, sendPassword);
-//    }
-//    public void clickButton(){
-//        ClickAction.click(button);
-//    }
-//
-//    public void login(String username, String password) {
-//        sendUsername(username);
-//        sendPassword(password);
-//        clickButton();
-//    }
+    public void login(String username, String password) {
+        sendUsername(username);
+        sendPassword(password);
+        clickButton();
+    }
 }

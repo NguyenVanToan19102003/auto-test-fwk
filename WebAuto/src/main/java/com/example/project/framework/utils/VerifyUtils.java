@@ -1,6 +1,6 @@
 package com.example.project.framework.utils;
 
-import com.example.project.framework.browser.BrowserManager;
+import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,12 +11,14 @@ import java.util.NoSuchElementException;
 
 public class VerifyUtils {
 
+    private static WebDriver getDriver() {
+        return ThucydidesWebDriverSupport.getDriver();
+    }
     // Todo build method verify element tồn tại trên dom
     public static void verifyElementPresent(By locator){
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementPresent(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             Assert.assertNotNull(element);
             LoggerUtils.info("✅ verifyElementPresent PASSED: Element = " + element);
         }catch (AssertionError a){
@@ -30,9 +32,8 @@ public class VerifyUtils {
     // Todo build method verify element k tồn tại trên dom
     public static void verifyElementNotPresent(By locator) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementPresent(locator);
-            driver.findElement(locator);
+            getDriver().findElement(locator);
             // Nếu tìm được phần tử thì là lỗi -> fail test
             Assert.fail("Element is present but should not be: " + locator);
         } catch (NoSuchElementException e) {
@@ -48,9 +49,8 @@ public class VerifyUtils {
     // Todo build method verify element tồn tại trên UI
     public static void verifyElementVisible(By locator){
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementVisible(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             Assert.assertTrue(element.isDisplayed());
             LoggerUtils.info("✅ verifyElementVisible PASSED: Element = " + element);
         }catch (AssertionError a){
@@ -64,9 +64,8 @@ public class VerifyUtils {
     // Todo build method verify element k tồn tại trên UI
     public static void verifyElementNotVisible(By locator) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementVisible(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             Assert.assertFalse(element.isDisplayed(), "Element is visible but should not be: " + locator);
             LoggerUtils.info("✅ verifyElementNotVisible PASSED: " + locator);
         } catch (NoSuchElementException e) {
@@ -134,9 +133,8 @@ public class VerifyUtils {
     // Todo build method verify element có đúng với gia trị mong đợi
     public static void verifyElementText(By locator, String expectedText) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementVisible(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             String actualText = element.getText();
             Assert.assertEquals(actualText, expectedText);
             LoggerUtils.info("✅ verifyElementText PASSED: Actual text = " + actualText + ", Expected = " + expectedText);
@@ -151,12 +149,11 @@ public class VerifyUtils {
     // Todo build method verify url hiện tại có giống expectedUrl mong đợi
     public static void verifyCurrentUrl(String expectedUrl) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            String actualUrl = driver.getCurrentUrl();
+            String actualUrl = getDriver().getCurrentUrl();
             Assert.assertEquals(expectedUrl, 2);
             LoggerUtils.info("✅ verifyCurrentUrl PASSED: URL matches " + expectedUrl);
         } catch (AssertionError a) {
-            LoggerUtils.error("❌ verifyCurrentUrl FAILED: Expected " + expectedUrl + ", Actual" + BrowserManager.getDriver().getCurrentUrl(), a);
+            LoggerUtils.error("❌ verifyCurrentUrl FAILED: Expected " + expectedUrl + ", Actual" + getDriver().getCurrentUrl(), a);
             throw a;
         } catch (Exception e) {
             LoggerUtils.error("❌ Exception in verifyCurrentUrl", e);
@@ -166,9 +163,8 @@ public class VerifyUtils {
     // Todo build method verify attribute có đúng với giá trị mong đợi
     public static void verifyElementAttribute(By locator, String attributeName, String expectedValue) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementPresent(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             String actualValue = element.getDomAttribute(attributeName);
             Assert.assertEquals(actualValue, expectedValue);
             LoggerUtils.info("✅ verifyElementAttribute PASSED: AttributeName = " + attributeName + "ExpectedValue =" + expectedValue);
@@ -183,9 +179,8 @@ public class VerifyUtils {
     // Todo build method verify element có được enabled không
     public static void verifyElementEnabled(By locator) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementVisible(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             Assert.assertTrue(element.isEnabled());
             LoggerUtils.info("✅ verifyElementEnabled PASSED: Element is enabled " + locator);
         } catch (AssertionError a) {
@@ -199,9 +194,8 @@ public class VerifyUtils {
     // Todo build method verify element có hiển thị và click được không
     public static void verifyElementClickable(By locator) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementVisible(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             Assert.assertTrue(element.isDisplayed() && element.isEnabled());
             LoggerUtils.info("✅ verifyElementClickable PASSED: " + locator);
         } catch (NoSuchElementException e) {
@@ -218,9 +212,8 @@ public class VerifyUtils {
     // Todo build method verify element không được enabled
     public static void verifyElementDisabled(By locator) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementVisible(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             Assert.assertFalse(element.isEnabled(), "Element is enabled but should be disabled: " + locator);
             LoggerUtils.info("✅ verifyElementDisabled PASSED: " + locator);
         } catch (NoSuchElementException e) {
@@ -237,9 +230,8 @@ public class VerifyUtils {
     // Todo build method verify checkbox or radio đã được chọn chưa
     public static void verifyElementSelected(By locator) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementVisible(locator);
-            WebElement element = driver.findElement(locator);
+            WebElement element = getDriver().findElement(locator);
             Assert.assertTrue(element.isSelected());
             LoggerUtils.info("✅ verifyElementSelected PASSED: Element is selected " + locator);
         } catch (AssertionError a) {
@@ -253,12 +245,11 @@ public class VerifyUtils {
     // Todo build method verify title hiện tại có giống với title mong đợi
     public static void verifyTitle(String expectedTitle) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            String actualTitle = driver.getTitle();
+            String actualTitle = getDriver().getTitle();
             Assert.assertEquals(expectedTitle, actualTitle);
             LoggerUtils.info("✅ verifyTitle PASSED: Title matches " + expectedTitle);
         } catch (AssertionError a) {
-            LoggerUtils.error("❌ verifyTitle FAILED: Expected " + expectedTitle + ", Actual" + BrowserManager.getDriver().getTitle(), a);
+            LoggerUtils.error("❌ verifyTitle FAILED: Expected " + expectedTitle + ", Actual" + getDriver().getTitle(), a);
             throw a;
         } catch (Exception e) {
             LoggerUtils.error("❌ Exception in verifyTitle", e);
@@ -268,9 +259,8 @@ public class VerifyUtils {
     // Todo build method verify số lượng element có bằng giá trị mong đợi
     public static void verifyElementCountEquals(By locator, int expectedCount) {
         try {
-            WebDriver driver = BrowserManager.getDriver();
             WaitUtils.waitForElementPresent(locator);
-            List<WebElement> elements = driver.findElements(locator);
+            List<WebElement> elements = getDriver().findElements(locator);
             int actualCount = elements.size();
             Assert.assertEquals(actualCount, expectedCount);
             LoggerUtils.info("✅ verifyElementCountEquals PASSED: Found = " + actualCount + ", expectedCount" + expectedCount);

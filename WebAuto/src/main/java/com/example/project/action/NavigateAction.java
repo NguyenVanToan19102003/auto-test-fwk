@@ -1,16 +1,19 @@
 package com.example.project.action;
 
-import com.example.project.framework.browser.BrowserManager;
 import com.example.project.framework.utils.LoggerUtils;
+import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;
 import org.openqa.selenium.WebDriver;
 
 public class NavigateAction {
 
+    private static WebDriver getDriver() {
+        return ThucydidesWebDriverSupport.getDriver();
+    }
+
     // Todo build method điều hướng url cụ thể
     public static void goToUrl(String url){
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            driver.get(url);
+            getDriver().get(url);
             LoggerUtils.info("✅ Navigated to URL: " + url);
         } catch (Exception e) {
             LoggerUtils.error("❌ Failed to navigate to URL: " + url, e);
@@ -21,8 +24,7 @@ public class NavigateAction {
     // Todo build method quay lại trang trước đó
     public static void goBack(){
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            driver.navigate().back();
+            getDriver().navigate().back();
             LoggerUtils.info("✅ Navigated back to previous page");
         } catch (Exception e) {
             LoggerUtils.error("❌ Failed to navigate back", e);
@@ -33,8 +35,7 @@ public class NavigateAction {
     // Todo build method đi tới trang tiếp theo
     public static void goForward(){
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            driver.navigate().forward();
+            getDriver().navigate().forward();
             LoggerUtils.info("✅ Navigated forward to next page");
         } catch (Exception e) {
             LoggerUtils.error("❌ Failed to navigate forward", e);
@@ -45,8 +46,7 @@ public class NavigateAction {
     // Todo build method refresh lại trang hiện tại
     public static void refreshPage(){
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            driver.navigate().refresh();
+            getDriver().navigate().refresh();
             LoggerUtils.info("✅ Page refreshed successfully");
         }catch (Exception e){
             LoggerUtils.error("❌ Failed to refresh page", e);
@@ -57,8 +57,7 @@ public class NavigateAction {
     // Todo build method lấy url hiện tại
     public static String getCurrentUrl(){
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            String url = driver.getCurrentUrl();
+            String url = getDriver().getCurrentUrl();
             LoggerUtils.info("✅ Current URL: " + url);
             return url;
         }catch (Exception e){
@@ -70,8 +69,7 @@ public class NavigateAction {
     // Todo build method lấy page title hiện tại
     public static String getPageTitle(){
         try {
-            WebDriver driver = BrowserManager.getDriver();
-            String title = driver.getTitle();
+            String title = getDriver().getTitle();
             LoggerUtils.info("✅ Page title: " + title);
             return title;
         }catch (Exception e){
